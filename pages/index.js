@@ -2,6 +2,7 @@ import {Box} from "@chakra-ui/react";
 
 import HeroSection from "../src/components/Hero/HeroSection";
 import InfoSection from "../src/components/info/InfoSection";
+import CarouselSection from "../src/components/carousel/CarouselSection";
 
 const Home = () => {
 
@@ -9,6 +10,7 @@ const Home = () => {
         <Box>
             <HeroSection/>
             <InfoSection/>
+            <CarouselSection/>
         </Box>
     )
 }

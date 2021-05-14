@@ -4,6 +4,10 @@ import 'focus-visible/dist/focus-visible'
 import {Provider} from 'react-redux'
 import store from "../src/store/store";
 
+import "swiper/swiper.min.css";
+import  '../src/components/carousel/swiper.css'
+
+
 function MyApp({Component, pageProps}) {
 
     return (
