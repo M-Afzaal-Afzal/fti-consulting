@@ -6,14 +6,15 @@ import "swiper/components/navigation/navigation.min.css"
 
 import SwiperCore, {
     Pagination,
-    Navigation
+    Navigation,
+    Autoplay
 } from 'swiper/core';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Box, Heading, Text} from "@chakra-ui/react";
 
 
 // install Swiper modules
-SwiperCore.use([Pagination, Navigation]);
+SwiperCore.use([Autoplay,Pagination, Navigation]);
 
 const CarouselSection = () => {
     return (
@@ -23,6 +24,10 @@ const CarouselSection = () => {
             }}
             navigation={true}
             className="mySwiper"
+            autoplay={{
+                "delay": 2500,
+                "disableOnInteraction": false
+            }}
         >
 
             {/*  Slide one */}
