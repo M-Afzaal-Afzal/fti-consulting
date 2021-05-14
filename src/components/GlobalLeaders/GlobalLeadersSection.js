@@ -48,7 +48,7 @@ const GlobalLeadersSection = () => {
 
                 <Container maxWidth={'1200px'}>
                     {/*first box*/}
-                    <Flex justify={'center'} alignItems={'center'} wrap={'wrap'}>
+                    <Flex justify={'center'} alignItems={'stretch'} wrap={'wrap'}>
 
                         <Box w={'200px'} margin={4} border={'1px solid white'} p={4} py={16} textAlign={'center'}>
                             <Text
