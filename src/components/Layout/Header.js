@@ -16,7 +16,7 @@ const Header = () => {
             {/*</Box>*/}
             <Box position={'fixed'} zIndex={999} w={'100%'} bg={'rgba(118, 151, 176, 0.6)'} borderBottom={'1px solid #fff'}>
 
-                <Container maxWidth={["540px", null, "960px"]} position={'relative'}>
+                <Container maxWidth={["540px", null, "960px",'1140px']} position={'relative'}>
                     <Box
                         display={'flex'}
                         flexWrap={'nowrap'}
