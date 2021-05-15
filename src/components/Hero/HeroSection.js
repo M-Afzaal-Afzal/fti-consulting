@@ -1,6 +1,5 @@
 import React from 'react';
 import {Box, Heading} from "@chakra-ui/react";
-import Image from 'next/image';
 
 const HeroSection = () => {
     return (
@@ -37,15 +36,16 @@ const HeroSection = () => {
                         textAlign={'center'}
                         color={'#fff'}
                         lineHeight={1.1}
+                        textTransform={'uppercase'}
                     >
-                        EXPERTS <br/>
+                        Abyan<br/>
                         <Box
                             fontWeight={'bolder'}
                             fontFamily={'Fjalla One'}
                             display={'inline-block'}
                             fontSize={['60px',null,null,'85px']}
                         >
-                            WITH IMPACT
+                            Global Strategies
                         </Box>
                     </Heading>
 
