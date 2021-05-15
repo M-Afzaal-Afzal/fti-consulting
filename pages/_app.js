@@ -12,7 +12,6 @@ import '../src/components/carousel/swiper.css'
 function MyApp({Component, pageProps}) {
 
     return (
-        <AnimatePresence exitBeforeEnter>
             <Provider store={store}>
                 <Chakra cookies={pageProps.cookies}>
                     <Layout>
@@ -20,7 +19,6 @@ function MyApp({Component, pageProps}) {
                     </Layout>
                 </Chakra>
             </Provider>
-        </AnimatePresence>
     )
 }
 

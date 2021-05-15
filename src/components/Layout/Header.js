@@ -1,10 +1,19 @@
 import React, {useState} from 'react';
-import {Box, Button, Container, Text, VStack} from "@chakra-ui/react";
+import {Box, Button, Container, Text, useDisclosure, VStack} from "@chakra-ui/react";
 import Image from 'next/image';
 import HeaderButton from "../Buttons/HeaderButton";
 import {useMediaQuery} from "@chakra-ui/react";
+import {
+    Drawer,
+    DrawerBody,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
+} from "@chakra-ui/react"
 
-import { motion } from "framer-motion"
+import {AnimatePresence, motion} from "framer-motion"
 
 const whiteBosVariant = {
     hidden: {
@@ -21,7 +30,11 @@ const whiteBosVariant = {
     },
     exit: {
         opacity: 0,
-        y: -50,
+        y: 50,
+        transition: {
+            type: 'tween',
+            duration: .3
+        }
     }
 }
 
@@ -33,6 +46,9 @@ const Header = () => {
     const [isLargerThan992] = useMediaQuery("(min-width: 992px)")
 
     const [hoveredSection, setHoveredSection] = useState(null);
+
+    const {isOpen, onOpen, onClose} = useDisclosure()
+
 
     const handleMouseEnter = (value) => {
         setHoveredSection(value);
@@ -60,6 +76,7 @@ const Header = () => {
                             alignItems={'center'}
                             w={"100%"}
                             h={'80px'}
+                            onMouseEnter={handleMouseLeave}
                         >
                             {/* Left icons*/}
                             <Box>
@@ -80,25 +97,25 @@ const Header = () => {
                                     <Box>
                                         <HeaderButton onMouseEnter={() => {
                                             handleMouseEnter('about')
-                                        }} >
+                                        }}>
                                             About
                                         </HeaderButton>
 
                                         <HeaderButton onMouseEnter={() => {
                                             handleMouseEnter('practices & sectors')
-                                        }} >
+                                        }}>
                                             Practices & Sectors
                                         </HeaderButton>
 
                                         <HeaderButton onMouseEnter={() => {
                                             handleMouseEnter('trending topics')
-                                        }} >
+                                        }}>
                                             Trending Topics
                                         </HeaderButton>
 
                                         <HeaderButton onMouseEnter={() => {
                                             handleMouseEnter('news')
-                                        }} >
+                                        }}>
                                             Newsroom
                                         </HeaderButton>
                                     </Box>
@@ -107,7 +124,8 @@ const Header = () => {
 
                             {
                                 !isLargerThan992 && (
-                                    <Box _hover={{cursor: 'pointer'}} right={'22px'} top={'30px'} position={'absolute'}>
+                                    <Box onClick={onOpen} _hover={{cursor: 'pointer'}} right={'22px'} top={'30px'}
+                                         position={'absolute'}>
                                         <Image
                                             src={'https://fticommunications.com/wp-content/themes/FTI%20Communications%20Custom%20Theme/assets/img/hamburger.png'}
                                             width={48}
@@ -122,484 +140,547 @@ const Header = () => {
 
                     {/*     about white bos*/}
 
-                    {
+                    <AnimatePresence exitBeforeEnter>
 
-                        (hoveredSection === 'about') && (
-                            <MotionBox
-                                variants={whiteBosVariant}
-                                initial={'hidden'}
-                                animate={'visible'}
-                                exit={'exit'}
-                                onMouseLeave={handleMouseLeave}
-                                py={16} px={24} position={'absolute'} bg={'white'} top={'80px'} w={'100%'}
-                                 // height={'30rem'}
-                                display={'grid'}
-                                gridTemplateColumns={'1fr 1fr'}
-                                gridGap={'2rem'}
-                            >
+                        {
+                            (hoveredSection === 'about') && (
+                                <MotionBox
+                                    variants={whiteBosVariant}
+                                    initial={'hidden'}
+                                    animate={'visible'}
+                                    exit={'exit'}
+                                    onMouseLeave={handleMouseLeave}
+                                    py={16} px={24} position={'absolute'} bg={'white'} top={'80px'} w={'100%'}
+                                    // height={'30rem'}
+                                    display={'grid'}
+                                    gridTemplateColumns={'1fr 1fr'}
+                                    gridGap={'2rem'}
+                                >
 
-                                {/* image section*/}
-                                <Box marginLeft={'auto'} width={'8rem'} marginRight={'4rem'}>
+                                    {/* image section*/}
+                                    <Box marginLeft={'auto'} width={'8rem'} marginRight={'4rem'}>
 
-                                    <Box mb={'2rem'} height={'87px'} position={'relative'} width={'124px'}>
+                                        <Box mb={'2rem'} height={'87px'} position={'relative'} width={'124px'}>
 
-                                    <Image src={'https://fticommunications.com/wp-content/uploads/2020/05/brand_images_pine_forest_lake_road_A4-300x212.jpg'}
-                                        layout={'fill'} objectFit={'cover'} />
+                                            <Image
+                                                src={'https://fticommunications.com/wp-content/uploads/2020/05/brand_images_pine_forest_lake_road_A4-300x212.jpg'}
+                                                layout={'fill'} objectFit={'cover'}/>
+
+                                        </Box>
+
+                                        <Box>
+
+                                            <Text fontSize={'16px'} fontFamily={'Source Sans Pro'} fontWeight={'normal'}
+                                                  color={'#58595b'}>
+                                                FTI Strategic Communications helps companies around the world manage
+                                                change, mitigate risk, and enhance their market position.
+                                            </Text>
+
+                                        </Box>
 
                                     </Box>
+
+                                    {/* links section*/}
 
                                     <Box>
-
-                                        <Text fontSize={'16px'} fontFamily={'Source Sans Pro'} fontWeight={'normal'} color={'#58595b'} >
-                                            FTI Strategic Communications helps companies around the world manage change, mitigate risk, and enhance their market position.
-                                        </Text>
-
-                                    </Box>
-
-                                </Box>
-
-                                {/* links section*/}
-
-                                <Box>
 
                                         {/* first link section*/}
 
-                                    <Box display={'grid'} grid gridTemplateColumns={'1fr 1fr'}>
+                                        <Box display={'grid'} grid gridTemplateColumns={'1fr 1fr'}>
+
+                                            <Box>
+                                                <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
+                                                    Strategic Communications
+                                                </Text>
+                                            </Box>
+
+                                            <VStack spacing={1.5} alignItems={'flex-start'}>
+
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    about
+                                                </Button>
+
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    carrers
+                                                </Button>
+
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    our values
+                                                </Button>
+
+                                            </VStack>
+
+                                        </Box>
+
+                                        {/* second link section*/}
+
+                                        <Box mt={8} display={'grid'} grid gridTemplateColumns={'1fr 1fr'}>
+
+                                            <Box>
+                                                <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
+                                                    REGIONS </Text>
+                                            </Box>
+
+                                            <VStack spacing={1.5} alignItems={'flex-start'}>
+
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    Asia-Pacific
+                                                </Button>
+
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    Australia
+                                                </Button>
+
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    Europe, MIddle East & Africa
+                                                </Button>
+
+                                            </VStack>
+
+                                        </Box>
+
+                                        {/* third link section*/}
+
+                                        <Box mt={8} display={'grid'} grid gridTemplateColumns={'1fr 1fr'}>
+
+                                            <Box>
+                                                <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
+                                                    FTI CONSULTING
+                                                </Text>
+                                            </Box>
+
+                                            <VStack spacing={1.5} alignItems={'flex-start'}>
+
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    fticonsulting.com
+                                                </Button>
+
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    FTI Journal
+                                                </Button>
+
+                                            </VStack>
+
+                                        </Box>
+
+                                        {/* fourth link section*/}
+
+                                        <Box mt={8} display={'grid'} grid gridTemplateColumns={'1fr 1fr'}>
+
+                                            <Box>
+                                                <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
+                                                    Contact Us </Text>
+                                            </Box>
+
+                                            {/*<VStack spacing={1.5} alignItems={'flex-start'}>*/}
+
+                                            {/*    <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>*/}
+                                            {/*        about*/}
+                                            {/*    </Button>*/}
+
+                                            {/*    <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>*/}
+                                            {/*        carrers*/}
+                                            {/*    </Button>*/}
+
+                                            {/*    <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>*/}
+                                            {/*        our values*/}
+                                            {/*    </Button>*/}
+
+                                            {/*</VStack>*/}
+
+                                        </Box>
+
+                                    </Box>
+
+                                </MotionBox>
+                            )
+                        }
+
+
+                        {/*     practices & sectors white bos*/}
+
+
+                        {
+
+                            (hoveredSection === 'practices & sectors') && (
+                                <MotionBox
+                                    variants={whiteBosVariant}
+                                    initial={'hidden'}
+                                    animate={'visible'}
+                                    exit={'exit'}
+                                    onMouseLeave={handleMouseLeave}
+                                    py={16} px={24} position={'absolute'} bg={'white'} top={'80px'} w={'100%'}
+                                    // height={'30rem'}
+                                    display={'grid'}
+                                    gridTemplateColumns={'1fr 1fr'}
+                                    gridGap={'2rem'}
+                                >
+
+                                    {/* image section*/}
+                                    <Box marginLeft={'auto'} width={'10rem'} marginRight={'4rem'}>
+
+                                        <Box mb={'2rem'} height={'87px'} position={'relative'} width={'124px'}>
+
+                                            <Image
+                                                src={'https://fticommunications.com/wp-content/uploads/2020/08/energy-natural-resources-2048x1366-1-300x200.jpg'}
+                                                layout={'fill'} objectFit={'cover'}/>
+
+                                        </Box>
 
                                         <Box>
-                                            <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
-                                            Strategic Communications
+
+                                            <Text fontSize={'16px'} fontFamily={'Source Sans Pro'} fontWeight={'normal'}
+                                                  color={'#58595b'}>
+                                                Combining subject matter expertise with functional and disciplinary
+                                                experience, we help companies and industries around the world navigate
+                                                and manage their most pressing financial, regulatory and reputational
+                                                matters.
                                             </Text>
+
                                         </Box>
 
-                                        <VStack spacing={1.5} alignItems={'flex-start'}>
-
-                                               <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                   about
-                                               </Button>
-
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                carrers
-                                            </Button>
-
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                our values
-                                            </Button>
-
-                                        </VStack>
-
                                     </Box>
 
-                                    {/* second link section*/}
-
-                                    <Box mt={8} display={'grid'} grid gridTemplateColumns={'1fr 1fr'}>
-
-                                        <Box>
-                                            <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
-                                                REGIONS                                            </Text>
-                                        </Box>
-
-                                        <VStack spacing={1.5} alignItems={'flex-start'}>
-
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                Asia-Pacific
-                                            </Button>
-
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                Australia
-                                            </Button>
-
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                Europe, MIddle East & Africa
-                                            </Button>
-
-                                        </VStack>
-
-                                    </Box>
-
-                                    {/* third link section*/}
-
-                                    <Box mt={8} display={'grid'} grid gridTemplateColumns={'1fr 1fr'}>
-
-                                        <Box>
-                                            <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
-                                                FTI CONSULTING
-                                            </Text>
-                                        </Box>
-
-                                        <VStack spacing={1.5} alignItems={'flex-start'}>
-
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                fticonsulting.com
-                                            </Button>
-
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                FTI Journal
-                                            </Button>
-
-                                        </VStack>
-
-                                    </Box>
-
-                                    {/* fourth link section*/}
-
-                                    <Box mt={8} display={'grid'} grid gridTemplateColumns={'1fr 1fr'}>
-
-                                        <Box>
-                                            <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
-                                                Contact Us                                            </Text>
-                                        </Box>
-
-                                        {/*<VStack spacing={1.5} alignItems={'flex-start'}>*/}
-
-                                        {/*    <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>*/}
-                                        {/*        about*/}
-                                        {/*    </Button>*/}
-
-                                        {/*    <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>*/}
-                                        {/*        carrers*/}
-                                        {/*    </Button>*/}
-
-                                        {/*    <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>*/}
-                                        {/*        our values*/}
-                                        {/*    </Button>*/}
-
-                                        {/*</VStack>*/}
-
-                                    </Box>
-
-                                </Box>
-
-                            </MotionBox>
-                        )
-                    }
-
-                    {/*     practices & sectors white bos*/}
-
-                    {
-
-                        (hoveredSection === 'practices & sectors') && (
-                            <MotionBox
-                                variants={whiteBosVariant}
-                                initial={'hidden'}
-                                animate={'visible'}
-                                exit={'exit'}
-                                onMouseLeave={handleMouseLeave}
-                                py={16} px={24} position={'absolute'} bg={'white'} top={'80px'} w={'100%'}
-                                // height={'30rem'}
-                                display={'grid'}
-                                gridTemplateColumns={'1fr 1fr'}
-                                gridGap={'2rem'}
-                            >
-
-                                {/* image section*/}
-                                <Box marginLeft={'auto'} width={'10rem'} marginRight={'4rem'}>
-
-                                    <Box mb={'2rem'} height={'87px'} position={'relative'} width={'124px'}>
-
-                                        <Image src={'https://fticommunications.com/wp-content/uploads/2020/08/energy-natural-resources-2048x1366-1-300x200.jpg'}
-                                               layout={'fill'} objectFit={'cover'} />
-
-                                    </Box>
+                                    {/* links section*/}
 
                                     <Box>
 
-                                        <Text fontSize={'16px'} fontFamily={'Source Sans Pro'} fontWeight={'normal'} color={'#58595b'} >
-                                            Combining subject matter expertise with functional and disciplinary experience, we help companies and industries around the world navigate and manage their most pressing financial, regulatory and reputational matters.
-                                        </Text>
+                                        {/* first link section*/}
 
-                                    </Box>
+                                        <Box display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
 
-                                </Box>
+                                            <Box>
+                                                <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
+                                                    PRACTICES
+                                                </Text>
+                                            </Box>
 
-                                {/* links section*/}
+                                            <VStack spacing={1.5} alignItems={'flex-start'}>
 
-                                <Box>
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    CORPORATE REPUTATION
+                                                </Button>
 
-                                    {/* first link section*/}
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    CRISIS & LITIGATION
+                                                </Button>
 
-                                    <Box display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    DIGITAL & INSIGHTS
+                                                </Button>
 
-                                        <Box>
-                                            <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
-                                                PRACTICES
-                                            </Text>
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    FINANCIAL COMMUNICATIONS
+                                                </Button>
+
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    PEOPLE & TRANSFORMATION
+                                                </Button>
+
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    PUBLIC AFFAIRS & GOVERNMENT RELATIONS
+                                                </Button>
+
+                                            </VStack>
+
                                         </Box>
 
-                                        <VStack spacing={1.5} alignItems={'flex-start'}>
+                                        {/* second link section*/}
 
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                CORPORATE REPUTATION
-                                            </Button>
+                                        <Box mt={8} display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
 
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                CRISIS & LITIGATION
-                                            </Button>
+                                            <Box>
+                                                <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
+                                                    SECTORS
+                                                </Text>
+                                            </Box>
 
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                DIGITAL & INSIGHTS
-                                            </Button>
+                                            <VStack spacing={1.5} alignItems={'flex-start'}>
 
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                FINANCIAL COMMUNICATIONS
-                                            </Button>
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    CONSUMER
+                                                </Button>
 
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                PEOPLE & TRANSFORMATION
-                                            </Button>
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    ENERGY & NATURAL RESOURCES
+                                                </Button>
 
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                PUBLIC AFFAIRS & GOVERNMENT RELATIONS
-                                            </Button>
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    FINANCIAL SERVICES
+                                                </Button>
 
-                                        </VStack>
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    HEALTHCARE & LIFE SCIENCES
+                                                </Button>
 
-                                    </Box>
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    DIVERSIFIED INDUSTRIALS
+                                                </Button>
 
-                                    {/* second link section*/}
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    REAL ESTATE
+                                                </Button>
 
-                                    <Box mt={8} display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
+                                                <Button fontSize={'16px'} fontWeight={'normal'}
+                                                        textTransform={'uppercase'} variant={'link'}>
+                                                    TELECOM, MEDIA & TECHNOLOGY
+                                                </Button>
 
-                                        <Box>
-                                            <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
-                                                SECTORS
-                                            </Text>
+                                            </VStack>
+
                                         </Box>
 
-                                        <VStack spacing={1.5} alignItems={'flex-start'}>
+                                    </Box>
 
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                CONSUMER
-                                            </Button>
+                                </MotionBox>
+                            )
 
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                ENERGY & NATURAL RESOURCES
-                                            </Button>
+                        }
 
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                FINANCIAL SERVICES
-                                            </Button>
+                        {/*     trending topics white bos*/}
 
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                HEALTHCARE & LIFE SCIENCES
-                                            </Button>
+                        {
+                            (hoveredSection === 'trending topics') && (
+                                <MotionBox
+                                    variants={whiteBosVariant}
+                                    initial={'hidden'}
+                                    animate={'visible'}
+                                    exit={'exit'}
+                                    onMouseLeave={handleMouseLeave}
+                                    py={16} px={24} position={'absolute'} bg={'white'} top={'80px'} w={'100%'}
+                                    // height={'30rem'}
+                                    display={'grid'}
+                                    gridTemplateColumns={'1fr 1fr'}
+                                    gridGap={'2rem'}
+                                >
 
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                DIVERSIFIED INDUSTRIALS
-                                            </Button>
+                                    {/* image section*/}
+                                    <Box marginLeft={'auto'} width={'10rem'} marginRight={'4rem'}>
 
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                REAL ESTATE
-                                            </Button>
+                                        <Box mb={'2rem'} height={'87px'} position={'relative'} width={'124px'}>
 
-                                            <Button fontSize={'16px'} fontWeight={'normal'} textTransform={'uppercase'} variant={'link'}>
-                                                TELECOM, MEDIA & TECHNOLOGY
-                                            </Button>
+                                            <Image
+                                                src={'https://fticommunications.com/wp-content/uploads/2020/03/Layer-61-300x161.png'}
+                                                layout={'fill'} objectFit={'cover'}/>
 
-                                        </VStack>
+                                        </Box>
+
+                                        <Box>
+
+                                            <Text fontSize={'16px'} fontFamily={'Source Sans Pro'} fontWeight={'normal'}
+                                                  color={'#58595b'}>
+                                                FTI Consulting helps clients compete in a global economy where success
+                                                crosses industries and borders. Our experts are recognized for the depth
+                                                of their knowledge and a track record of making an impact.
+                                            </Text>
+
+                                        </Box>
 
                                     </Box>
 
-                                </Box>
-
-                            </MotionBox>
-                        )
-
-                    }
-
-                    {/*     trending topics white bos*/}
-
-                    {
-                        (hoveredSection === 'trending topics') && (
-                            <MotionBox
-                                variants={whiteBosVariant}
-                                initial={'hidden'}
-                                animate={'visible'}
-                                exit={'exit'}
-                                 onMouseLeave={handleMouseLeave}
-                                py={16} px={24} position={'absolute'} bg={'white'} top={'80px'} w={'100%'}
-                                // height={'30rem'}
-                                display={'grid'}
-                                gridTemplateColumns={'1fr 1fr'}
-                                gridGap={'2rem'}
-                            >
-
-                                {/* image section*/}
-                                <Box marginLeft={'auto'} width={'10rem'} marginRight={'4rem'}>
-
-                                    <Box mb={'2rem'} height={'87px'} position={'relative'} width={'124px'}>
-
-                                        <Image src={'https://fticommunications.com/wp-content/uploads/2020/03/Layer-61-300x161.png'}
-                                               layout={'fill'} objectFit={'cover'} />
-
-                                    </Box>
+                                    {/* links section*/}
 
                                     <Box>
 
-                                        <Text fontSize={'16px'} fontFamily={'Source Sans Pro'} fontWeight={'normal'} color={'#58595b'} >
-                                            FTI Consulting helps clients compete in a global economy where success crosses industries and borders. Our experts are recognized for the depth of their knowledge and a track record of making an impact.
-                                        </Text>
+                                        {/* first link section*/}
 
-                                    </Box>
+                                        <Box display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
 
-                                </Box>
+                                            <Box>
+                                                <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
+                                                    ALL INSIGHTS
+                                                </Text>
+                                            </Box>
 
-                                {/* links section*/}
+                                        </Box>
 
-                                <Box>
+                                        {/* second link section*/}
 
-                                    {/* first link section*/}
+                                        <Box mt={8} display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
 
-                                    <Box display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
+                                            <Box>
+                                                <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
+                                                    2020 ELECTION
+                                                </Text>
+                                            </Box>
 
-                                        <Box>
-                                            <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
-                                                ALL INSIGHTS
-                                            </Text>
+                                        </Box>
+
+                                        <Box mt={8} display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
+
+                                            <Box>
+                                                <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
+                                                    COVID-19
+                                                </Text>
+                                            </Box>
+
+                                        </Box>
+
+                                        <Box mt={8} display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
+
+                                            <Box>
+                                                <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
+                                                    ESG
+                                                </Text>
+                                            </Box>
+
+                                        </Box>
+
+                                        <Box mt={8} display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
+
+                                            <Box>
+                                                <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
+                                                    GERMAN ELECTION 2021
+                                                </Text>
+                                            </Box>
+
                                         </Box>
 
                                     </Box>
 
-                                    {/* second link section*/}
+                                </MotionBox>
+                            )
+                        }
 
-                                    <Box mt={8} display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
+                        {/*     news white bos*/}
+
+                        {
+                            (hoveredSection === 'news') && (
+                                <MotionBox
+                                    variants={whiteBosVariant}
+                                    initial={'hidden'}
+                                    animate={'visible'}
+                                    exit={'exit'}
+                                    onMouseLeave={handleMouseLeave}
+                                    py={16} px={24} position={'absolute'} bg={'white'} top={'80px'} w={'100%'}
+                                    // height={'30rem'}
+                                    display={'grid'}
+                                    gridTemplateColumns={'1fr 1fr'}
+                                    gridGap={'2rem'}
+                                >
+
+                                    {/* image section*/}
+                                    <Box marginLeft={'auto'} width={'10rem'} marginRight={'4rem'}>
+
+                                        <Box mb={'2rem'} height={'87px'} position={'relative'} width={'124px'}>
+
+                                            <Image
+                                                src={'https://fticommunications.com/wp-content/uploads/2020/04/newsroom-1-300x200.jpg'}
+                                                layout={'fill'} objectFit={'cover'}/>
+
+                                        </Box>
 
                                         <Box>
-                                            <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
-                                                2020 ELECTION
+
+                                            <Text fontSize={'16px'} fontFamily={'Source Sans Pro'} fontWeight={'normal'}
+                                                  color={'#58595b'}>
+                                                Keep up with the latest happenings from FTI Consulting Strategic
+                                                Communications.
                                             </Text>
+
                                         </Box>
 
                                     </Box>
 
-                                    <Box mt={8} display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
-
-                                        <Box>
-                                            <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
-                                                COVID-19
-                                            </Text>
-                                        </Box>
-
-                                    </Box>
-
-                                    <Box mt={8} display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
-
-                                        <Box>
-                                            <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
-                                                ESG
-                                            </Text>
-                                        </Box>
-
-                                    </Box>
-
-                                    <Box mt={8} display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
-
-                                        <Box>
-                                            <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
-                                                GERMAN ELECTION 2021
-                                            </Text>
-                                        </Box>
-
-                                    </Box>
-
-                                </Box>
-
-                            </MotionBox>
-                        )
-                    }
-
-                    {/*     news white bos*/}
-
-                    {
-                        (hoveredSection === 'news') && (
-                            <MotionBox
-                                variants={whiteBosVariant}
-                                initial={'hidden'}
-                                animate={'visible'}
-                                exit={'exit'}
-                               onMouseLeave={handleMouseLeave}
-                                py={16} px={24} position={'absolute'} bg={'white'} top={'80px'} w={'100%'}
-                                // height={'30rem'}
-                                display={'grid'}
-                                gridTemplateColumns={'1fr 1fr'}
-                                gridGap={'2rem'}
-                            >
-
-                                {/* image section*/}
-                                <Box marginLeft={'auto'} width={'10rem'} marginRight={'4rem'}>
-
-                                    <Box mb={'2rem'} height={'87px'} position={'relative'} width={'124px'}>
-
-                                        <Image src={'https://fticommunications.com/wp-content/uploads/2020/04/newsroom-1-300x200.jpg'}
-                                               layout={'fill'} objectFit={'cover'} />
-
-                                    </Box>
+                                    {/* links section*/}
 
                                     <Box>
 
-                                        <Text fontSize={'16px'} fontFamily={'Source Sans Pro'} fontWeight={'normal'} color={'#58595b'} >
-                                            Keep up with the latest happenings from FTI Consulting Strategic Communications.
-                                        </Text>
+                                        {/* first link section*/}
 
-                                    </Box>
+                                        <Box display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
 
-                                </Box>
+                                            <Box>
+                                                <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
+                                                    LATEST NEWS
+                                                </Text>
+                                            </Box>
 
-                                {/* links section*/}
+                                        </Box>
 
-                                <Box>
+                                        {/* second link section*/}
 
-                                    {/* first link section*/}
+                                        <Box mt={8} display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
 
-                                    <Box display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
+                                            <Box>
+                                                <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
+                                                    PRESS RELEASES
+                                                </Text>
+                                            </Box>
 
-                                        <Box>
-                                            <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
-                                                LATEST NEWS
-                                            </Text>
+                                        </Box>
+
+                                        <Box mt={8} display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
+
+                                            <Box>
+                                                <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
+                                                    AWARDS
+                                                </Text>
+                                            </Box>
+
+                                        </Box>
+
+                                        <Box mt={8} display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
+
+                                            <Box>
+                                                <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
+                                                    CONTACT US
+                                                </Text>
+                                            </Box>
+
                                         </Box>
 
                                     </Box>
 
-                                    {/* second link section*/}
+                                </MotionBox>
+                            )
+                        }
 
-                                    <Box mt={8} display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
+                    </AnimatePresence>
 
-                                        <Box>
-                                            <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
-                                                PRESS RELEASES
-                                            </Text>
-                                        </Box>
+                </Box>
 
-                                    </Box>
+                <Box>
+                    <Drawer
+                        isOpen={isOpen}
+                        placement="right"
+                        onClose={onClose}
+                    >
+                        <DrawerOverlay/>
+                        <DrawerContent>
 
-                                    <Box mt={8} display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
+                            <DrawerHeader>Create your account</DrawerHeader>
 
-                                        <Box>
-                                            <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
-                                                AWARDS
-                                            </Text>
-                                        </Box>
+                            <DrawerBody>
 
-                                    </Box>
+                            </DrawerBody>
 
-                                    <Box mt={8} display={'grid'} grid gridTemplateColumns={'150px 1fr'}>
+                            <DrawerFooter>
 
-                                        <Box>
-                                            <Text color={'#454545'} fontSize={'16px'} fontWeight={'bolder'}>
-                                                CONTACT US
-                                            </Text>
-                                        </Box>
+                            </DrawerFooter>
+                        </DrawerContent>
 
-                                    </Box>
-
-                                </Box>
-
-                            </MotionBox>
-                        )
-                    }
-
-
+                    </Drawer>
                 </Box>
 
             </Box>
