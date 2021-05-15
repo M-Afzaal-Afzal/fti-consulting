@@ -79,7 +79,7 @@ const Header = () => {
                             onMouseEnter={handleMouseLeave}
                         >
                             {/* Left icons*/}
-                            <Box>
+                            <Box onMouseEnter={handleMouseLeave} flexGrow={1}>
                                 <Box position={'relative'} width={[250, 365, null, 306]}
                                      height={[39, 49.28, null, 64.25]}>
                                     <Image
