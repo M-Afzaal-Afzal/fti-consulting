@@ -1,13 +1,23 @@
 import React, {useState} from 'react';
-import {Box, Button, Container, Text, useDisclosure, VStack} from "@chakra-ui/react";
+import {
+    Accordion,
+    AccordionButton, AccordionIcon,
+    AccordionItem, AccordionPanel,
+    Box,
+    Button,
+    Container,
+    Text,
+    useDisclosure,
+    VStack
+} from "@chakra-ui/react";
 import Image from 'next/image';
 import HeaderButton from "../Buttons/HeaderButton";
 import {useMediaQuery} from "@chakra-ui/react";
 import {
     Drawer,
-    DrawerBody,
+
     DrawerFooter,
-    DrawerHeader,
+
     DrawerOverlay,
     DrawerContent,
     DrawerCloseButton,
@@ -668,12 +678,90 @@ const Header = () => {
                     >
                         <DrawerOverlay/>
                         <DrawerContent>
+                            <DrawerCloseButton size={'lg'} style={{position: 'absolute',top: 0,left: -40,borderRadius: 0, background: 'white'}} />
 
-                            <DrawerHeader>Create your account</DrawerHeader>
+                            {/*<DrawerHeader>Create your account</DrawerHeader>*/}
 
-                            <DrawerBody>
+                            {/*<DrawerBody>*/}
 
-                            </DrawerBody>
+                                <Accordion defaultIndex={[0]} allowToggle>
+                                    <AccordionItem>
+                                        <Text >
+                                            <AccordionButton>
+                                                <Box fontWeight={'bold'} fontSize={'18px'} textTransform={'uppercase'} color={'#454545'} flex="1" textAlign="left">
+                                                    About
+                                                </Box>
+                                                <AccordionIcon />
+                                            </AccordionButton>
+                                        </Text>
+                                        <AccordionPanel pb={4}>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                            commodo consequat.
+                                        </AccordionPanel>
+                                    </AccordionItem>
+
+                                {/*    second item*/}
+
+                                    <AccordionItem>
+                                        <Text >
+                                            <AccordionButton>
+                                                <Box fontWeight={'bold'} fontSize={'18px'} textTransform={'uppercase'} color={'#454545'} flex="1" textAlign="left">
+                                                    Practices and Sectors
+                                                </Box>
+                                                <AccordionIcon />
+                                            </AccordionButton>
+                                        </Text>
+                                        <AccordionPanel pb={4}>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                            commodo consequat.
+                                        </AccordionPanel>
+                                    </AccordionItem>
+
+                                {/*    third item*/}
+
+                                    <AccordionItem>
+                                        <Text >
+                                            <AccordionButton>
+                                                <Box fontWeight={'bold'} fontSize={'18px'} textTransform={'uppercase'} color={'#454545'} flex="1" textAlign="left">
+                                                    Trending Topics
+                                                </Box>
+                                                <AccordionIcon />
+                                            </AccordionButton>
+                                        </Text>
+                                        <AccordionPanel pb={4}>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                            commodo consequat.
+                                        </AccordionPanel>
+                                    </AccordionItem>
+
+                                {/*    4th item*/}
+
+                                    <AccordionItem>
+                                        <Text >
+                                            <AccordionButton>
+                                                <Box fontWeight={'bold'} fontSize={'18px'} textTransform={'uppercase'} color={'#454545'} flex="1" textAlign="left">
+                                                   News Room
+                                                </Box>
+                                                <AccordionIcon />
+                                            </AccordionButton>
+                                        </Text>
+                                        <AccordionPanel pb={4}>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                            commodo consequat.
+                                        </AccordionPanel>
+                                    </AccordionItem>
+
+                                </Accordion>
+
+                            {/*</DrawerBody>*/}
 
                             <DrawerFooter>
 
