@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Footer = () => {
     return (
-        <Box bg={'#58595b'} p={8}>
+        <Box bg={'#858689'} p={8}>
             <Container maxWidth={["540px", null, "960px", '1140px']} position={'relative'}>
                 <Box
                     display={'flex'}
@@ -17,7 +17,7 @@ const Footer = () => {
                         <Box position={'relative'} mb={[5,null,null,0]} width={[250, 365, null, 306]}
                              height={[39, 49.28, null, 64.25]}>
                             <Image
-                                src={'https://fticommunications.com/wp-content/themes/FTI%20Communications%20Custom%20Theme/assets/img/FTI_Logo_White.svg'}
+                                src={'/Logoh.png'}
                                 objectFit={'contain'}
                                 layout={'fill'}
                             />

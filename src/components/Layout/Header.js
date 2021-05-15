@@ -14,7 +14,7 @@ const Header = () => {
             {/*<Box display={'flex'} justifyContent={'flex-end'}>*/}
 
             {/*</Box>*/}
-            <Box position={'fixed'} zIndex={999} w={'100%'} bg={'rgba(118, 151, 176, 0.6)'} borderBottom={'1px solid #fff'}>
+            <Box position={'fixed'} zIndex={999} w={'100%'} bg={'rgba(118, 151, 176, 0.9)'} borderBottom={'1px solid #fff'}>
 
                 <Container maxWidth={["540px", null, "960px",'1140px']} position={'relative'}>
                     <Box
@@ -30,7 +30,7 @@ const Header = () => {
                             <Box position={'relative'} width={[250,365, null, 306]}
                                  height={[39, 49.28, null, 64.25]}>
                                 <Image
-                                    src={'https://fticommunications.com/wp-content/themes/FTI%20Communications%20Custom%20Theme/assets/img/FTI_Logo_White.svg'}
+                                    src={'/Logoh.png'}
                                     objectFit={'contain'}
                                     layout={'fill'}
                                 />
