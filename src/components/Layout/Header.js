@@ -678,7 +678,7 @@ const Header = () => {
                     >
                         <DrawerOverlay/>
                         <DrawerContent>
-                            <DrawerCloseButton size={'lg'} style={{position: 'absolute',top: 0,left: -40,borderRadius: 0, background: 'white'}} />
+                            <DrawerCloseButton color={'#003763'} size={'lg'} style={{position: 'absolute',top: 0,left: -40,borderRadius: 0, background: 'white'}} />
 
                             {/*<DrawerHeader>Create your account</DrawerHeader>*/}
 
